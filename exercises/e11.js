@@ -26,9 +26,9 @@ export const usersUrl = 'http://localhost:3000/users/';
  * Example: const getLoginList = (data) => {<Your code>}
 */
 
-const getLoginList = () => {
+const getLoginList = (data) => {
   // Your code goes here...
-
+  return data.map(item => item.login);
 }
 
 /**
@@ -39,7 +39,10 @@ const getLoginList = () => {
 */
 
 // Your code goes here ...
-const getData;
+import fetch from "node-fetch";
+const getData = fetch(usersUrl)
+  .then(res => res.json())
+  .catch(e => e)
 
 /**
  * @task 
@@ -53,7 +56,12 @@ const getData;
 */
 
 // Your code goes here ...
-export const result = getData;
+export const result = getData
+  .then(data => Array.from(data))
+  .then(data => {
+    console.log(getLoginList(data))
+    return getLoginList(data);
+  })
 
 
 // === TEST YOURSELF ===
